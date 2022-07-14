@@ -9,9 +9,17 @@ for file in os.listdir(folder):
     if file.endswith(".png"):
         pa = folder+"/"+file
         im = Image.open(pa)
-        x = im.getcolors()
+        x = im.getcolors(im.size[0]*im.size[1])
         y = im.getbbox()
-        print(x)
-        print(y)
+        c = 0
+        for i in x:
+            if c == 0:
+                c = 1
+        cores = []
+        for cor_rgb in im.getdata():
+            if cor_rgb not in cores:
+                cores.append(cor_rgb)
+        print(cores)
+
 
 
