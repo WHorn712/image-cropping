@@ -14,33 +14,25 @@ for file in os.listdir(folder):
         im = np.array(pim)
         x = p.getcolors()
         cores = []
-        vertical = []
-        horizontal = []
+        lados = [[], [], [], []]
         for c in x:
             cores.append(list(c[1]))
         for cor in cores:
             if cor[0] != 255 and cor[1] != 255 and cor[2] != 255:
                 Y, X = np.where(np.all(im == cor, axis=2))
-                vertical.append(np.amin(Y))
-                horizontal.append(np.amin(X))
+                lados[0].append(np.amin(X))
+                lados[1].append(np.amax(X))
+                lados[2].append(np.amax(Y))
+                lados[3].append(np.amin(Y))
 
-        esquerdo = np.amin(horizontal)
-        direito = np.amax(horizontal)
-        baixo = np.amin(vertical)
-        cima = np.amax(vertical)
+        esquerdo = np.amin(lados[0])
+        direito = np.amax(lados[1])
+        baixo = np.amin(lados[3])
+        cima = np.amax(lados[2])
         print("esquerdo :"+str(esquerdo))
         print("direito :" + str(direito))
         print("baixo :" + str(baixo))
         print("cima :" + str(cima))
-
-        """pim = Image.open(pa)
-        x = pim.getcolors()
-        cores = []
-        for c in x:
-            cores.append(list(c[1]))
-        cor = cores[0]
-        Y, X = np.where(np.all(pim==cor, axis=2))
-        print(X, Y)"""
 
 
 
