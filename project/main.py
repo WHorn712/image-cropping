@@ -9,17 +9,28 @@ folder = fd.askdirectory(parent=root,initialdir="/",title='please select a direc
 for file in os.listdir(folder):
     if file.endswith(".png"):
         pa = folder+"/"+file
-        im = Image.open(pa)
-        x = im.getcolors(im.size[0]*im.size[1])
-        y = im.getbbox()
-        c = 0
-        cor = ()
-        print(type(cor))
-        for i in x:
-            if c == 0:
-                c = 1
-            elif c == 1:
-                c = 2
+        p = Image.open(pa)
+        pim = p.convert('RGB')
+        im = np.array(pim)
+        print(len(im))
+        x = p.getcolors()
+        cores = []
+        for c in x:
+            cores.append(list(c[1]))
+        cor = cores[0]
+        Y, X = np.where(np.all(im == cor, axis=2))
+
+        print(type(X))
+
+        """pim = Image.open(pa)
+        x = pim.getcolors()
+        cores = []
+        for c in x:
+            cores.append(list(c[1]))
+        cor = cores[0]
+        Y, X = np.where(np.all(pim==cor, axis=2))
+        print(X, Y)"""
+
 
 
 
