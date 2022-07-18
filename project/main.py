@@ -33,6 +33,8 @@ for file in os.listdir(folder):
         print("direito :" + str(direito))
         print("baixo :" + str(baixo))
         print("cima :" + str(cima))
+        cropimage = p.crop((esquerdo-10, baixo-10, direito+10, cima+10))
+        cropimage.show()
 
 
 
