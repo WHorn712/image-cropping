@@ -5,13 +5,14 @@ from PIL import Image
 import numpy as np
 
 #TRATAR CAMINHO NO RECEBIMENTO
-def os_image(folder):
-    for file in os.listdir(folder):
+def save_images_cutted_in_path(folder_origem, folder_destino):
+    for file in os.listdir(folder_origem):
         if file.endswith(".png"):
-            pa = folder + "/" + file
+            pa = folder_origem + "/" + file
             p = Image.open(pa)
             imagem_cortada = get_image_cuted(p)
-            #SALVAR NO CAMINHO SELECIONADO
+            imagem_cortada.save(folder_destino,format=".PNG")
+
 
 
 def get_image_cuted(image):
