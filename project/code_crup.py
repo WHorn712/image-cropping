@@ -11,8 +11,16 @@ def save_images_cutted_in_path(folder_origem, folder_destino):
             pa = folder_origem + "/" + file
             p = Image.open(pa)
             imagem_cortada = get_image_cuted(p)
-            imagem_cortada.save(folder_destino,format=".PNG")
+            text_path = folder_destino+"/imagem"+str(get_quantidade_arquivos_in_path(folder_destino))+".png"
+            imagem_cortada.save(text_path)
 
+
+def get_quantidade_arquivos_in_path(folder):
+    quantidade = 0
+    for file in os.listdir(folder):
+        if file.endswith(".png") or file.endswith(".jpg"):
+            quantidade += 1
+    return quantidade
 
 
 def get_image_cuted(image):

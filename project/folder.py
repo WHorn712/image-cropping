@@ -14,6 +14,7 @@ def get_folder_origem():
 
 
 
+
 def get_folder_destination():
     root = tkinter.Tk()
     folder_des = fd.askdirectory(parent=root, initialdir="/", title='PLEASE SELECT THE DESTINATION DIRECTORY OF THE IMAGES')
