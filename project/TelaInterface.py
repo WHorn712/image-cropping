@@ -29,7 +29,7 @@ def put_title(janela):
 def put_buttleCuple(janela):
     photo = PhotoImage(
         file=r'IMAGENS Program\tizoura.png')
-    photo = photo.subsample(15,15)
+    photo = photo.subsample(3,3)
     bt = Button(janela, image=photo)
     bt.grid(column=2,row=2)
     bt.photo = photo
