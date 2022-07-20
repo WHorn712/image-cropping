@@ -27,10 +27,12 @@ def put_title(janela):
         i += 1
 
 def put_buttleCuple(janela):
-    photo = PhotoImage(file=r'C:\Users\Micro\OneDrive\Documentos\Git\image-cropping\project\IMAGENS Program\buttonImage.png')
-    photo = photo.subsample(5,5)
+    photo = PhotoImage(
+        file=r'IMAGENS Program\tizoura.png')
+    photo = photo.subsample(15,15)
     bt = Button(janela, image=photo)
     bt.grid(column=2,row=2)
+    bt.photo = photo
     """photo = PhotoImage(file=r'C:\Gfg\circle.png')
     Button(janela, text='Click Me !', image=photo).pack(side=TOP)
     quantidade = 50
