@@ -15,9 +15,26 @@ def open_tela():
 
     """photo = PhotoImage(
         file=r'IMAGENS Program\labelcomparar.png')
-    photo = photo.subsample(3, 3)
-    imagem_caminho_text = Label(janela, text="dfsdf")
-    imagem_caminho_text.grid()"""
+    photo = photo.subsample(3, 3)"""
+    tv = r"C:\Users\Micro\OneDrive\Área de Trabalho\Nova pasta          abc"
+    t = ""
+    if len(tv)>61:
+        sobra = len(tv) - 61
+        c = 1
+        while c<=sobra:
+            print(c)
+            c += 1
+        #tv = tv.replace(, '...')
+    else:
+        t = tv
+
+    print(tv)
+    imagem_caminho_text = Label(janela, text=t)
+    imagem_caminho_text.grid(column=1,row=8, columnspan=5)
+    print(len(t))
+
+    imagem_caminho_text = Label(janela, text=r"C:\Users\Micro\OneDrive\Área de Trabalho\Nova pasta")
+    imagem_caminho_text.grid(column=1, row=10, columnspan=5)
 
 
     janela.mainloop()
@@ -25,7 +42,7 @@ def open_tela():
 def put_title(janela):
     janela.title("CORTAR IMAGEM")
 
-    quantidade = 12
+    quantidade = 5
     texto = Label(janela, text="CORTAR IMAGEM")
     texto.config(font=("Arial", 15))
     texto.grid(column=quantidade, row=1)
