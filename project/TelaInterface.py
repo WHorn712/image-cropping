@@ -13,18 +13,15 @@ def open_tela():
 
     put_buttlesFiles(janela, linha=10, coluna=20, arquivo_path=r"IMAGENS Program\buttonImage.png")
 
-    """photo = PhotoImage(
-        file=r'IMAGENS Program\labelcomparar.png')
-    photo = photo.subsample(3, 3)"""
-    tv = r"C:\Users\Micro\OneDrive\Área de Trabalho\Nova pasta         aabcdfgdfgdfgfdg"
+    tv = ""
     if len(tv)>61:
         tv = tv[0:58]
         tv = tv + "..."
 
-    imagem_caminho_text = Label(janela, text=tv)
+    imagem_caminho_text = Label(janela, text="PASTA DE IMAGENS PARA CORTAR")
     imagem_caminho_text.grid(column=1,row=8, columnspan=5)
 
-    imagem_caminho_text = Label(janela, text=tv)
+    imagem_caminho_text = Label(janela, text="PASTA DE DESTINO")
     imagem_caminho_text.grid(column=1, row=10, columnspan=5)
 
 

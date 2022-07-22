@@ -1,6 +1,7 @@
 import tkinter
 import tkinter.filedialog as fd
 import os
+from tkinter import messagebox
 
 
 
@@ -10,7 +11,7 @@ def get_folder_origem():
     if (os.path.isdir(folder)):
         return folder
     else:
-        print("SOURCE DIRECTORY DOES NOT EXIST")
+        messagebox("DIRETÓRIO NÃO EXISTE")
 
 
 
