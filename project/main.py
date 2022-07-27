@@ -6,7 +6,11 @@ import TelaInterface
 #fol_destino = folder.get_folder_destination()
 
 #code_crup.save_images_cutted_in_path(folder_origem=fol_origem, folder_destino=fol_destino)
-TelaInterface.open_tela()
+
+
+
+#TelaInterface.open_tela()
+TelaInterface.teste_mygui()
 
 
 
