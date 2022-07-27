@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter.filedialog as fd
 import os
 from tkinter import messagebox
+import code_crup
 
 
 class MyGui:
@@ -19,61 +20,81 @@ class MyGui:
         photo = PhotoImage(
             file=r'IMAGENS Program\tizoura.png')
         photo = photo.subsample(3, 3)
-        self.botao_cortar = Button(self.janela, image=photo)
+        self.botao_cortar = Button(self.janela, image=photo, command=self.cortar)
         self.botao_cortar.grid(column=1, row=12)
         self.botao_cortar.photo = photo
         self.espacamento.append(put_buttleCuple(self.janela))
-        self.botao_abrir_pastaOrigem = put_buttlesFiles_create(self.janela, comando_bt1, linha=8, coluna=20,
+        self.botao_abrir_pastaOrigem = put_buttlesFiles_create(self.janela, self.comando_abrir_pasta_cima,
+                                                               linha=8, coluna=20,
                                                                arquivo_path=r"IMAGENS Program\buttonImage.png")
         self.espacamento = put_buttlesFiles(self.janela, linha=8, coluna=20)
-        self.botao_abrir_pastaDestino = put_buttlesFiles_create(self.janela, self.comando_abrir_pasta, linha=10, coluna=20,
+        self.botao_abrir_pastaDestino = put_buttlesFiles_create(self.janela, self.comando_abrir_pasta_baixo,
+                                                                linha=10, coluna=20,
                                                                arquivo_path=r"IMAGENS Program\buttonImage.png")
         self.espacamento = put_buttlesFiles(self.janela, linha=10, coluna=20)
         self.text_btPasta_cima = "PASTA DE IMAGENS PARA CORTAR"
         self.text_btPasta_baixo = "PASTA DE DESTINO DAS IMAGENS CORTADAS"
-        self.text_caminho_origem = Label(self.janela, text=self.text_btPasta_cima)
-        self.text_caminho_origem.grid(column=1,row=8, columnspan=5)
+        self.label_caminho_origem = Label(self.janela, text=self.text_btPasta_cima)
+        self.label_caminho_origem.grid(column=1,row=8, columnspan=5)
 
-        self.text_caminho_destino = Label(self.janela, text=self.text_btPasta_baixo)
-        self.text_caminho_destino.grid(column=1, row=10, columnspan=5)
+        self.label_caminho_destino = Label(self.janela, text=self.text_btPasta_baixo)
+        self.label_caminho_destino.grid(column=1, row=10, columnspan=5)
 
         mainloop()
 
-    def comando_abrir_pasta(self):
+
+    def comando_abrir_pasta_cima(self):
         folder = fd.askdirectory(parent=self.janela, initialdir="/",
                                  title='PLEASE SELECT THE SOURCE DIRECTORY OF THE IMAGES')
         if (os.path.isdir(folder)):
-            print("")
+            self.text_btPasta_cima = folder
+            self.label_caminho_origem['text'] = self.get_pathText_formatado(self.text_btPasta_cima)
         else:
-            messagebox("DIRETÓRIO NÃO EXISTE")
+            messagebox.showerror("SELECIONE UMA PASTA", "DIRETÓRIO NÃO EXISTE")
+
+
+    def comando_abrir_pasta_baixo(self):
+        folder = fd.askdirectory(parent=self.janela, initialdir="/",
+                                 title='PLEASE SELECT THE SOURCE DIRECTORY OF THE IMAGES')
+        if (os.path.isdir(folder)):
+            self.text_btPasta_baixo = folder
+            self.label_caminho_destino['text'] = self.get_pathText_formatado(self.text_btPasta_baixo)
+        else:
+            messagebox.showerror("SELECIONE UMA PASTA", "DIRETÓRIO NÃO EXISTE")
+
+
+    def get_pathText_formatado(self, text):
+        if len(text)>61:
+            text = text[0:53]
+            text = text + "..."
+        return text
+
+
+    def cortar(self):
+        ok = False
+        if os.path.isdir(self.text_btPasta_baixo):
+            ok = True
+        else:
+            messagebox.showerror("ERRO NO CORTE", "DIRETÓRIO DE DESTINO VAZIU OU INCORRETO")
+
+        if ok and os.path.isdir(self.text_btPasta_cima):
+            code_crup.save_images_cutted_in_path(self.text_btPasta_cima, self.text_btPasta_baixo)
+        elif ok:
+            messagebox.showerror("ERRO NO CORTE", "DIRETÓRIO DE ORIGEM VAZIU OU INCORRETO")
+            ok = False
+
+        if ok:
+            messagebox.showinfo("IMAGENS CORTADAS")
+
+
+
+
 
 def teste_mygui():
     mg = MyGui()
 
-def open_tela():
-    janela = Tk()
-    janela.geometry("400x400")
-    put_title(janela)
-
-    put_buttleCuple(janela)
-
-    put_buttlesFiles(janela, comando_bt1, linha=8, coluna=20, arquivo_path=r"IMAGENS Program\buttonImage.png")
-
-    put_buttlesFiles(janela, comando_bt1, linha=10, coluna=20, arquivo_path=r"IMAGENS Program\buttonImage.png")
-
-    tv = ""
-    if len(tv)>61:
-        tv = tv[0:58]
-        tv = tv + "..."
-
-    imagem_caminho_text = Label(janela, text="PASTA DE IMAGENS PARA CORTAR")
-    imagem_caminho_text.grid(column=1,row=8, columnspan=5)
-
-    imagem_caminho_text = Label(janela, text="PASTA DE DESTINO")
-    imagem_caminho_text.grid(column=1, row=10, columnspan=5)
 
 
-    janela.mainloop()
 
 def put_title(janela):
     quantidade = 5
@@ -99,8 +120,6 @@ def put_buttleCuple(janela):
     colunas = []
     return ("botão_cortar", colunas, listaLabels)
 
-
-
 def put_buttlesFiles_create(janela, comando, linha = 10, coluna=10, arquivo_path=r"IMAGENS Program\tizoura.png"):
     photo = PhotoImage(
         file=arquivo_path)
@@ -110,7 +129,6 @@ def put_buttlesFiles_create(janela, comando, linha = 10, coluna=10, arquivo_path
     bt.photo = photo
 
     return bt
-
 
 def put_buttlesFiles(janela, linha = 10, coluna=10):
 
@@ -130,5 +148,3 @@ def put_buttlesFiles(janela, linha = 10, coluna=10):
 
     return ("botões de definir caminho das pastas", listaLabels2, listaLabels)
 
-def comando_bt1():
-    print("teste comando")
