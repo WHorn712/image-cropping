@@ -2,6 +2,13 @@ from tkinter import *
 import tkinter.filedialog as fd
 
 
+class MyGui:
+    def __init__(self):
+        self.janela = Tk()
+        self.janela.geometry("400x400")
+        self.janela.title("CORTAR IMAGEM")
+        self.texto_titulo_janela = ""
+
 def open_tela():
     janela = Tk()
     janela.geometry("400x400")
@@ -9,9 +16,9 @@ def open_tela():
 
     put_buttleCuple(janela)
 
-    put_buttlesFiles(janela, linha=8, coluna=20, arquivo_path=r"IMAGENS Program\buttonImage.png")
+    put_buttlesFiles(janela, comando_bt1, linha=8, coluna=20, arquivo_path=r"IMAGENS Program\buttonImage.png")
 
-    put_buttlesFiles(janela, linha=10, coluna=20, arquivo_path=r"IMAGENS Program\buttonImage.png")
+    put_buttlesFiles(janela, comando_bt1, linha=10, coluna=20, arquivo_path=r"IMAGENS Program\buttonImage.png")
 
     tv = ""
     if len(tv)>61:
@@ -59,11 +66,11 @@ def put_buttleCuple(janela):
         listaLabels[i].grid(column=1, row=i+1)
         i += 1
 
-def put_buttlesFiles(janela, linha = 10, coluna=10, arquivo_path=r"IMAGENS Program\tizoura.png"):
+def put_buttlesFiles(janela, comando, linha = 10, coluna=10, arquivo_path=r"IMAGENS Program\tizoura.png"):
     photo = PhotoImage(
         file=arquivo_path)
     photo = photo.subsample(6, 6)
-    bt = Button(janela, image=photo)
+    bt = Button(janela, image=photo, command=comando)
     bt.grid(column=coluna, row=linha)
     bt.photo = photo
 
@@ -80,3 +87,6 @@ def put_buttlesFiles(janela, linha = 10, coluna=10, arquivo_path=r"IMAGENS Progr
         listaLabels.append(Label(janela, text=""))
         listaLabels[i].grid(column=1, row=i + 1)
         i += 1
+
+def comando_bt1():
+    print("teste comando")
