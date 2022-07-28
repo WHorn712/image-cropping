@@ -26,8 +26,18 @@ def get_quantidade_arquivos_in_path(folder):
 def get_image_cuted(image):
     pim = image.convert('RGB')
     im = np.array(pim)
+    im_new = []
+    a = 0
+    im_new = np.array(im_new)
+    print(type(im_new))
+    for i in im:
+        cor = i[a]
+        if cor[0] != 255 and cor[1] != 255 and cor[2] != 255:
+            im_new = np.append(im_new, i)
+        a += 1
+
     x = image.getcolors(image.size[0]*image.size[1])
-    return cutting(colors=x, im=im, im_open=image)
+    return cutting(colors=x, im=im_new, im_open=image)
 
 
 def cutting(colors, im, im_open):
