@@ -30,20 +30,43 @@ def get_image_cuted(image):
     im_new = np.array(im_new)
     contador = 0
     index_cima = 0
+    index_esquerda = 0
     for i in im:
-        aux = i
-        is_board = True if len(aux[aux != [255, 255, 255]]) > 0 else False
+        is_board = True if len(i[i != [255, 255, 255]]) > 0 else False and is_water(i)
         if is_board:
             index_cima = contador
             break
         contador += 1
-    print("is board:")
-    print(is_board)
-    print(index_cima)
 
+    contColuna = 0
+    while contColuna < len(im[0]):
+        aux = im[:, contColuna]
+        if True if len(aux[aux != [255, 255, 255]]) > 0 else False and is_water(aux):
+            index_esquerda = contColuna
+            break
+        contColuna += 1
+
+    im_inverse = im[::-1]
+    index_baixo = 0
+    contador = 0
+    for i in im_inverse:
+        is_board = True if len(i[i != [255, 255, 255]]) > 0 else False and is_water(i)
+        if is_board:
+            index_baixo = contador
+            break
+        contador += 1
+    if contador > 0:
+        index_baixo = len(im) - (index_baixo + 1)
+
+    print(index_cima)
+    print(index_esquerda)
+    print(index_baixo)
+    print("dsfdsf")
     x = image.getcolors(image.size[0]*image.size[1])
     return cutting(colors=x, im=im, im_open=image)
 
+def is_water(matriz):
+    return np.any(matriz <= 200)
 
 def cutting(colors, im, im_open):
     cores = []
