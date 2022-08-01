@@ -27,17 +27,22 @@ def get_image_cuted(image):
     pim = image.convert('RGB')
     im = np.array(pim)
     im_new = []
-    a = 0
     im_new = np.array(im_new)
-    print(type(im_new))
+    contador = 0
+    index_cima = 0
     for i in im:
-        cor = i[a]
-        if cor[0] != 255 and cor[1] != 255 and cor[2] != 255:
-            im_new = np.append(im_new, i)
-        a += 1
+        aux = i
+        is_board = True if len(aux[aux != [255, 255, 255]]) > 0 else False
+        if is_board:
+            index_cima = contador
+            break
+        contador += 1
+    print("is board:")
+    print(is_board)
+    print(index_cima)
 
     x = image.getcolors(image.size[0]*image.size[1])
-    return cutting(colors=x, im=im_new, im_open=image)
+    return cutting(colors=x, im=im, im_open=image)
 
 
 def cutting(colors, im, im_open):
@@ -50,15 +55,21 @@ def cutting(colors, im, im_open):
     q = 0
     for cor in cores:
         q += 1
-        Y, X = np.where(np.all(im == cor, axis=2))
+        X = 0
+        Y = 0
+        #Y, X = np.where(np.all(im == cor, axis=2))
         lados[0].append(np.amin(X))
         lados[1].append(np.amax(X))
         lados[2].append(np.amax(Y))
         lados[3].append(np.amin(Y))
         print(q)
-
+    print(str(len(im))+" im   /   "+str(len(cores)))
     esquerdo = np.amin(lados[0])
     direito = np.amax(lados[1])
     baixo = np.amin(lados[3])
     cima = np.amax(lados[2])
+    esquerdo = 0
+    direito = 2000
+    baixo = 2000
+    cima = 864
     return im_open.crop((esquerdo - 10, baixo - 10, direito + 10, cima + 10))
