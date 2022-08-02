@@ -70,22 +70,13 @@ def get_image_cuted(image):
         contColuna -= 1
 
     aux_im = im[index_cima:index_baixo]
-    new_im = []
-    new_im = np.array(new_im)
-    i = 0
-    print("chegou aqui")
-    for a in aux_im:
-        m_cort = a[index_esquerda:index_direito]
-        new_im = np.append(new_im, m_cort)
-        print(i)
-        i += 1
+
 
 
     print(index_cima)
     print(index_esquerda)
     print(index_baixo)
     print(index_direito)
-    print(len(new_im))
     print("dsfdsf")
 
 
