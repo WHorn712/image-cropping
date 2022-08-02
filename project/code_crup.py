@@ -54,18 +54,42 @@ def get_image_cuted(image):
         is_board = True if len(i[i != [255, 255, 255]]) > 0 else False
         if is_board and is_water(i):
             index_baixo = contador
-            print("entrou aqui "+str(contador)+" o menor é "+str(is_water(i)))
             break
         contador += 1
     if contador > 0:
         index_baixo = len(im) - (index_baixo + 1)
 
+    index_direito = 0
+    contColuna = len(im[0]) - 1
+    while contColuna >= 0:
+        aux = im[:, contColuna]
+        is_board = True if len(aux[aux != [255, 255, 255]]) > 0 else False
+        if is_board and is_water(aux):
+            index_direito = contColuna
+            break
+        contColuna -= 1
+
+    aux_im = im[index_cima:index_baixo]
+    new_im = []
+    new_im = np.array(new_im)
+    i = 0
+    print("chegou aqui")
+    for a in aux_im:
+        m_cort = a[index_esquerda:index_direito]
+        new_im = np.append(new_im, m_cort)
+        print(i)
+        i += 1
 
 
     print(index_cima)
     print(index_esquerda)
     print(index_baixo)
+    print(index_direito)
+    print(len(new_im))
     print("dsfdsf")
+
+
+
     x = image.getcolors(image.size[0]*image.size[1])
     return cutting(colors=x, im=im, im_open=image)
 
