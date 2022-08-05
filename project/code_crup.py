@@ -72,58 +72,18 @@ def get_image_cuted(image):
     aux_im = im[index_cima:index_baixo]
     shape = list(np.shape(aux_im))
     shape[1] = len(aux_im[0]) - (index_esquerda + (len(aux_im[0]) - (index_direito+1)))
-    new_im = np.zeros(tuple(shape), dtype=int)
+    new_im = np.zeros(tuple(shape), dtype='u1')
     i = 0
 
     for a in aux_im:
         new_im[i] = aux_im[i, index_esquerda:(index_direito+1)]
         i += 1
 
+
     image = Image.fromarray(new_im, mode="RGB")
-    image.show()
 
-
-
-
-    print(index_cima)
-    print(index_esquerda)
-    print(index_baixo)
-    print(index_direito)
-    print("dsfdsf")
-
-
-
-    x = image.getcolors(image.size[0]*image.size[1])
-    return cutting(colors=x, im=im, im_open=image)
+    return image
 
 def is_water(matriz):
     return np.any(matriz <= 230)
 
-def cutting(colors, im, im_open):
-    cores = []
-    for c in colors:
-        cor_atual = list(c[1])
-        if cor_atual[0] != 255 and cor_atual[1] != 255 and cor_atual[2] != 255:
-            cores.append(list(c[1]))
-    lados = [[], [], [], []]
-    q = 0
-    for cor in cores:
-        q += 1
-        X = 0
-        Y = 0
-        #Y, X = np.where(np.all(im == cor, axis=2))
-        lados[0].append(np.amin(X))
-        lados[1].append(np.amax(X))
-        lados[2].append(np.amax(Y))
-        lados[3].append(np.amin(Y))
-        print(q)
-    print(str(len(im))+" im   /   "+str(len(cores)))
-    esquerdo = np.amin(lados[0])
-    direito = np.amax(lados[1])
-    baixo = np.amin(lados[3])
-    cima = np.amax(lados[2])
-    esquerdo = 0
-    direito = 2000
-    baixo = 2000
-    cima = 864
-    return im_open.crop((esquerdo - 10, baixo - 10, direito + 10, cima + 10))
