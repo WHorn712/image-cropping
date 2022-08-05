@@ -69,21 +69,16 @@ def get_image_cuted(image):
             break
         contColuna -= 1
 
+    index_esquerda = 0
+    index_direito = 1996
     aux_im = im[index_cima:index_baixo]
     shape = list(np.shape(aux_im))
     shape[1] = len(aux_im[0]) - (index_esquerda + (len(aux_im[0]) - (index_direito+1)))
     new_im = np.zeros(tuple(shape))
     i = 0
+
     for a in aux_im:
-        c = 0
-        contador_index = 0
-        for b in a:
-            if c >= index_esquerda:
-                new_im[i,contador_index] = aux_im[i,c]
-                contador_index += 1
-            c += 1
-            if c > index_direito:
-                break
+        new_im[i] = aux_im[i, index_esquerda:(index_direito+1)]
         i += 1
 
     image = Image.fromarray(new_im, mode="RGB")
