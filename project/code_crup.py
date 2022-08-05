@@ -69,12 +69,10 @@ def get_image_cuted(image):
             break
         contColuna -= 1
 
-    index_esquerda = 0
-    index_direito = 1996
     aux_im = im[index_cima:index_baixo]
     shape = list(np.shape(aux_im))
     shape[1] = len(aux_im[0]) - (index_esquerda + (len(aux_im[0]) - (index_direito+1)))
-    new_im = np.zeros(tuple(shape))
+    new_im = np.zeros(tuple(shape), dtype=int)
     i = 0
 
     for a in aux_im:
